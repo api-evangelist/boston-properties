@@ -1,7 +1,11 @@
 aid: boston-properties
-url: https://raw.githubusercontent.com/api-evangelist/boston-properties/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/boston-properties/refs/heads/main/apis.yml
 modified: '2026-03-23'
 apis: []
 common:
   - type: Website
     url: https://www.boston-properties.com
+description: >-
+  Boston Properties is a self-administered and self-managed real estate investment
+  trust that develops, owns, and manages Class A office properties in major U.S. cities.
