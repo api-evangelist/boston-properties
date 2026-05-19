@@ -22,6 +22,8 @@ description: >-
   self-administered and self-managed REIT focused on premier urban workspace.
 apis: []
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/boston-properties
   - type: Website
     url: https://www.bxp.com
   - type: InvestorRelations
