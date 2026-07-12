@@ -23,6 +23,8 @@ description: >-
   self-administered and self-managed REIT focused on premier urban workspace.
 apis: []
 common:
+  - type: DomainSecurity
+    url: security/boston-properties-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/boston-properties
   - type: Website
