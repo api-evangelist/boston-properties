@@ -2,6 +2,13 @@ aid: boston-properties
 url: https://raw.githubusercontent.com/api-evangelist/boston-properties/refs/heads/main/apis.yml
 name: Boston Properties (BXP)
 tags:
+  - Real-Estate
+  - Commercial Real Estate
+  - REIT
+  - Office Properties
+  - Workplace
+  - Fortune 1000
+tags_raw:
   - Real Estate
   - Commercial Real Estate
   - REIT
