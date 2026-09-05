@@ -1,0 +1,33 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  live response headers from https://www.bxp.com/wp-json/wp/v2/pages and sibling routes
+  (2026-09-04). BXP publishes no API documentation, so there is no documented limit to record.
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+limit_count: 0
+documented: false
+note: >-
+  Zero published limits. No RateLimit-*, X-RateLimit-* or Retry-After header appeared on any
+  observed response, and there is no docs page to state a limit — BXP runs no developer program.
+  This is an honest zero, not an unchecked field.
+response_headers: []
+status_on_exhaustion: null
+observed_controls:
+- control: cloudflare-user-agent-filtering
+  detail: >-
+    Requests carrying a non-browser User-Agent are answered with an HTML Cloudflare interstitial
+    (HTTP 403, "Attention Required! | Cloudflare") on every route, including routes that return
+    200 to a browser-shaped User-Agent. This is the practical access limit on the surface and it
+    is unsignalled and undocumented.
+  observed_status: 403
+  observed: '2026-09-04'
+- control: crawl-delay
+  detail: 'https://www.bxp.com/robots.txt sets Crawl-delay: 10 for all user agents; nothing is disallowed.'
+  observed_status: 200
+  observed: '2026-09-04'
+- control: edge-caching
+  detail: >-
+    'cache-control: max-age=600, must-revalidate' with WP Engine (x-cache, x-cache-group) and
+    Cloudflare (cf-cache-status) layers in front. Not a rate limit, but it bounds how fresh a
+    response can be.
+  observed: '2026-09-04'

@@ -1,0 +1,129 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/boston-properties-wordpress-rest-openapi.yml, the verbatim route index at
+  openapi/boston-properties-wp-json-discovery.json, and live response headers observed on
+  https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04)
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+scope_note: >-
+  BXP publishes no developer program and no first-party API documentation. Everything below was
+  read off the interface itself — the provider-served route-discovery document and observed
+  response headers — not off a docs page, because there is no docs page. The upstream semantics
+  are those of the WordPress REST API.
+authentication:
+  style: none-for-reads
+  detail: >-
+    Collection and item reads under wp/v2 are anonymous (verified 200 on /wp/v2/pages,
+    /wp/v2/posts, /wp/v2/types, /wp/v2/categories, /wp/v2/search, /wp/v2/gl_js_maps).
+    Writes and privileged reads require a WordPress account — application passwords over HTTP
+    Basic, or a logged-in cookie plus an X-WP-Nonce header. Neither is available to third
+    parties; /wp/v2/settings returns 401 rest_forbidden anonymously.
+  artifact: authentication/boston-properties-authentication.yml
+idempotency:
+  coverage: none
+  supported: false
+  header: null
+  scope: []
+  detail: >-
+    No idempotency mechanism. The WordPress REST API defines no Idempotency-Key header and BXP
+    adds none; a repeated POST to /wp/v2/posts creates a second record. Reads are naturally
+    idempotent but that is not replay protection. Note that the mutating surface is not open to
+    third parties in the first place — every write route requires a WordPress account on the
+    BXP site.
+reversibility:
+  grade: documented
+  applies_to: authenticated write surface only (not reachable by third parties)
+  detail: >-
+    WordPress deletes are soft by default: DELETE on a post-type route moves the record to
+    trash and it can be restored by setting status back to publish/draft; passing force=true
+    deletes permanently and irreversibly. That behaviour is declared in the provider's own
+    route index (the `force` argument, "Whether to bypass Trash and force deletion", default
+    false) rather than in any BXP document.
+  reversals:
+  - write_operation: deleteWpV2PostsById
+    reversal_operation: updateWpV2PostsById
+    mechanism: >-
+      DELETE without force=true trashes the post; PATCH/POST with status=publish or status=draft
+      restores it.
+    window: null
+    window_source: null
+  - write_operation: deleteWpV2PagesById
+    reversal_operation: updateWpV2PagesById
+    mechanism: DELETE without force=true trashes the page; a status update restores it.
+    window: null
+    window_source: null
+  window_note: >-
+    NOT verified. WordPress core empties the trash on a schedule governed by the
+    EMPTY_TRASH_DAYS constant (30 days by default), but that constant is server configuration
+    and BXP publishes nothing that states its value. No window is asserted here.
+pagination:
+  style: page-number
+  request_parameters:
+  - name: page
+    default: 1
+    minimum: 1
+  - name: per_page
+    default: 10
+    maximum: 100
+  - name: offset
+    note: alternative to page on most collection routes
+  response_headers:
+  - name: X-WP-Total
+    meaning: total number of matching records
+  - name: X-WP-TotalPages
+    meaning: total number of pages at the current per_page
+  - name: Link
+    meaning: RFC 8288 rel="next" / rel="prev" links
+  evidence: >-
+    Observed on https://www.bxp.com/wp-json/wp/v2/pages?per_page=2 (2026-09-04):
+    x-wp-total: 20, x-wp-totalpages: 10, link: <.../wp/v2/pages?per_page=2&page=2>; rel="next",
+    access-control-expose-headers: X-WP-Total, X-WP-TotalPages, Link
+field_selection:
+  supported: true
+  mechanism: >-
+    `_fields` (comma-separated sparse fieldset) and `_embed` (inline embedded resources) are
+    accepted on every wp/v2 route; `context=view|embed|edit` switches the returned field set.
+    These are WordPress core conventions, present on the routes BXP serves.
+metadata:
+  supported: true
+  detail: post-type routes expose a `meta` object; this deployment also returns an `acf` object (Advanced Custom Fields).
+request_tracing:
+  request_id_header: null
+  detail: >-
+    No request-id or correlation header is returned. The only traceable identifiers on a response
+    are Cloudflare's cf-ray and the WP Engine cache headers (x-cache, x-cache-group,
+    cf-cache-status), which are infrastructure, not an API contract.
+versioning:
+  style: namespace-in-path
+  current: wp/v2
+  detail: >-
+    Versioning is by URL namespace (/wp-json/wp/v2/...). BXP publishes no versioning policy of
+    its own; the namespace is set by the WordPress release running on the site.
+  other_namespaces_served: 15
+error_envelope:
+  format: wordpress-rest-error
+  rfc9457: false
+  shape:
+    code: machine-readable error slug, e.g. rest_forbidden
+    message: human-readable sentence
+    data.status: the HTTP status repeated in the body
+  evidence: >-
+    Observed verbatim on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401, 2026-09-04):
+    {"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}
+  artifact: errors/boston-properties-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  detail: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appeared on any observed response. The
+    surface sits behind Cloudflare and WP Engine caching (cache-control: max-age=600), so
+    unpublished edge limits may exist, but nothing is signalled to a client.
+  artifact: rate-limits/boston-properties-rate-limits.yml
+dry_run_mode:
+  supported: false
+  detail: No preview, validate-only or dry-run parameter exists on any route in the index.
+cross_links:
+  errors: errors/boston-properties-problem-types.yml
+  lifecycle: lifecycle/boston-properties-lifecycle.yml
+  authentication: authentication/boston-properties-authentication.yml
+  rate_limits: rate-limits/boston-properties-rate-limits.yml

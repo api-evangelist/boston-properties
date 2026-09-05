@@ -42,7 +42,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/boston-properties.png
 access: 3rd-Party
 created: '2026-03-23'
-modified: '2026-04-21'
+modified: '2026-09-04'
 position: Consuming
 description: >-
   BXP (formerly Boston Properties) is the largest publicly traded developer, owner,
@@ -50,8 +50,92 @@ description: >-
   owns, and manages Class A office properties across six major U.S. markets: Boston,
   Los Angeles, New York, San Francisco, Seattle, and Washington DC. BXP is a
   self-administered and self-managed REIT focused on premier urban workspace.
-apis: []
+apis:
+  - aid: boston-properties:bxp-wordpress-rest-api
+    name: BXP WordPress REST API
+    description: >-
+      The WordPress REST API served by BXP's corporate website at https://www.bxp.com/wp-json — 332
+      routes across 15 namespaces, discovered by probing the API host root on 2026-09-04. This is
+      the only machine-readable contract BXP publishes. It is incidental CMS infrastructure, not a
+      product: BXP runs no developer program, publishes no documentation, no SDKs, no pricing and
+      no terms for programmatic use, and the surface carries x-robots-tag noindex. Reads under
+      wp/v2 are anonymous and were verified live (pages, posts, types, categories, search,
+      gl_js_maps, and an oEmbed 1.0 provider endpoint); writes and privileged reads require a
+      WordPress account on BXP's own site and are not obtainable by a third party. The entities a
+      real-estate consumer would want — property, region, team-member, property-type, member-type
+      — exist on the site as custom post types with their own sitemaps but are deliberately NOT
+      registered for REST, so they are absent from this contract.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/boston-properties.png
+    humanURL: https://www.bxp.com/wp-json/
+    baseURL: https://www.bxp.com/wp-json
+    tags:
+      - WordPress
+      - Content
+      - CMS
+      - Real-Estate
+    properties:
+      - type: OpenAPI
+        url: openapi/boston-properties-wordpress-rest-openapi.yml
+      - type: OpenAPISource
+        url: openapi/boston-properties-wp-json-discovery.json
+      - type: Overlay
+        url: overlays/boston-properties-wordpress-rest-overlay.yaml
+      - type: x-upstream-documentation
+        url: https://developer.wordpress.org/rest-api/
+    x-evidence:
+      discovery_url: https://www.bxp.com/wp-json/
+      http_status: 200
+      routes: 332
+      namespaces: 15
+      fetched: '2026-09-04'
+      anonymous_read_verified:
+        - https://www.bxp.com/wp-json/wp/v2/pages
+        - https://www.bxp.com/wp-json/wp/v2/types
+        - https://www.bxp.com/wp-json/wp/v2/categories
+        - https://www.bxp.com/wp-json/wp/v2/search
+        - https://www.bxp.com/wp-json/wp/v2/gl_js_maps
+        - https://www.bxp.com/wp-json/oembed/1.0/embed
+      ownership: >-
+        Served from www.bxp.com, BXP's own registrable domain. The discovery document
+        self-identifies as name "BXP", url https://www.bxp.com, and the oEmbed response returns
+        provider_name "BXP". No sibling-brand or third-party host is involved.
 common:
+  - type: Conventions
+    url: conventions/boston-properties-conventions.yml
+  - type: ErrorCatalog
+    url: errors/boston-properties-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/boston-properties-lifecycle.yml
+  - type: Conformance
+    url: conformance/boston-properties-conformance.yml
+  - type: DataModel
+    url: data-model/boston-properties-data-model.yml
+  - type: RateLimits
+    url: rate-limits/boston-properties-rate-limits.yml
+  - type: Plans
+    url: plans/boston-properties-plans-pricing.yml
+  - type: LLMsTxt
+    url: llms/boston-properties-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: X-MCPServerCandidate
+    url: mcp/boston-properties-mcp.yml
+  - type: x-well-known-probe
+    url: well-known/boston-properties-well-known.yml
+  - type: TermsOfService
+    url: https://www.bxp.com/terms-of-service
+  - type: PrivacyPolicy
+    url: https://www.bxp.com/privacy-policy
+  - type: Blog
+    url: https://www.bxp.com/news
+  - type: BlogRSS
+    url: https://www.bxp.com/news/feed/
+  - type: Support
+    url: https://www.bxp.com/contact
+  - type: AgenticAccess
+    url: agentic-access/boston-properties-agentic-access.yml
+  - type: Authentication
+    url: authentication/boston-properties-authentication.yml
   - type: DomainSecurity
     url: security/boston-properties-domain-security.yml
   - type: LinkedIn
@@ -95,3 +179,8 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3

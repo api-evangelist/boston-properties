@@ -1,0 +1,128 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/boston-properties-wordpress-rest-openapi.yml and the /wp/v2/types response from
+  https://www.bxp.com/wp-json/wp/v2/types (HTTP 200, 2026-09-04)
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+note: >-
+  Entities are the WordPress content types BXP's site actually registers for REST. The
+  commercially interesting entities on bxp.com — property, region, team-member, property-type,
+  member-type — exist as custom post types (each has its own XML sitemap) but none of them
+  appears in /wp/v2/types, so none is exposed to the REST API. That absence is the most
+  important thing this data model records.
+entities:
+- name: post
+  rest_base: posts
+  collection: /wp/v2/posts
+  identifier: id (site-local integer)
+  note: 'Anonymous read returned an empty array on 2026-09-04 — the news archive is not stored as core posts.'
+- name: page
+  rest_base: pages
+  collection: /wp/v2/pages
+  identifier: id
+  note: '20 records visible anonymously (x-wp-total: 20).'
+- name: attachment
+  rest_base: media
+  collection: /wp/v2/media
+  identifier: id
+- name: category
+  rest_base: categories
+  collection: /wp/v2/categories
+  identifier: id
+- name: post_tag
+  rest_base: tags
+  collection: /wp/v2/tags
+  identifier: id
+- name: user
+  rest_base: users
+  collection: /wp/v2/users
+  identifier: id
+- name: comment
+  rest_base: comments
+  collection: /wp/v2/comments
+  identifier: id
+- name: gl_js_maps
+  rest_base: gl_js_maps
+  collection: /wp/v2/gl_js_maps
+  identifier: id
+  note: Custom post type registered by a map plugin; the only non-core content type exposed to REST.
+- name: wp_block
+  rest_base: blocks
+  collection: /wp/v2/blocks
+- name: wp_template
+  rest_base: templates
+  collection: /wp/v2/templates
+- name: wp_template_part
+  rest_base: template-parts
+  collection: /wp/v2/template-parts
+- name: wp_navigation
+  rest_base: navigation
+  collection: /wp/v2/navigation
+- name: nav_menu_item
+  rest_base: menu-items
+  collection: /wp/v2/menu-items
+- name: wp_font_family
+  rest_base: font-families
+  collection: /wp/v2/font-families
+- name: wp_font_face
+  rest_base: font-families/{font_family_id}/font-faces
+relationships:
+- from: post
+  to: category
+  type: has_many
+  via: categories[] (array of category ids)
+- from: post
+  to: post_tag
+  type: has_many
+  via: tags[] (array of tag ids)
+- from: post
+  to: user
+  type: belongs_to
+  via: author (user id)
+- from: post
+  to: attachment
+  type: has_one
+  via: featured_media (attachment id)
+- from: page
+  to: page
+  type: belongs_to
+  via: parent (page id)
+- from: page
+  to: user
+  type: belongs_to
+  via: author
+- from: comment
+  to: post
+  type: belongs_to
+  via: post (post id)
+- from: comment
+  to: user
+  type: belongs_to
+  via: author
+- from: category
+  to: category
+  type: belongs_to
+  via: parent
+- from: wp_font_face
+  to: wp_font_family
+  type: belongs_to
+  via: font_family_id (path parameter)
+- from: post
+  to: revision
+  type: has_many
+  via: /wp/v2/posts/{parent}/revisions
+- from: page
+  to: revision
+  type: has_many
+  via: /wp/v2/pages/{parent}/revisions
+not_exposed:
+- entity: property
+  evidence: https://www.bxp.com/property-sitemap.xml exists; the type is absent from /wp/v2/types
+- entity: region
+  evidence: https://www.bxp.com/region-sitemap.xml exists; the type is absent from /wp/v2/types
+- entity: team-member
+  evidence: https://www.bxp.com/team-member-sitemap.xml exists; the type is absent from /wp/v2/types
+- entity: property-type
+  evidence: https://www.bxp.com/property-type-sitemap.xml exists; the taxonomy is absent from /wp/v2/taxonomies
+- entity: member-type
+  evidence: https://www.bxp.com/member-type-sitemap.xml exists; the taxonomy is absent from /wp/v2/taxonomies

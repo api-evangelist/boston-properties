@@ -1,0 +1,87 @@
+generated: '2026-09-04'
+method: derived
+status: candidate
+source: >-
+  derived from openapi/boston-properties-wordpress-rest-openapi.yml after searching for a
+  published server and finding none
+subject: BXP (Boston Properties)
+name: boston-properties-candidate
+description: >-
+  A CANDIDATE tool list. BXP ships no MCP server. This is what a server over the one contract BXP
+  actually serves — the WordPress REST API on the corporate site — would expose, derived from
+  operations that were verified to answer anonymously. Nothing here is running anywhere.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+search_evidence:
+- probe: https://www.bxp.com/wp-json/ namespaces list
+  result: >-
+    15 namespaces served; none is an MCP adapter namespace (no mcp/*, no wp-mcp). Some WordPress
+    sites in this catalog expose /wp-json/mcp/... via a plugin — BXP does not.
+  status: 200
+- probe: https://mcp.bxp.com
+  result: NXDOMAIN
+  status: null
+- probe: web search for "BXP MCP server" / "Boston Properties MCP"
+  result: no published server, no npm/PyPI package, no vendor listing
+  status: null
+- probe: https://www.bxp.com/wp-json/wp-abilities/v1/abilities
+  result: >-
+    The WordPress Abilities API namespace IS registered on this site (6 routes), which is the
+    surface a future WordPress MCP adapter would expose. It is auth-gated — 401 rest_forbidden
+    anonymously — so the ability list could not be read and no tool schemas are derivable from it.
+  status: 401
+tools:
+- name: search_bxp_content
+  description: Full-text search across BXP corporate site content (pages, posts, media).
+  rest: getWpV2Search
+  path: /wp/v2/search
+  verified_anonymous: true
+- name: list_bxp_pages
+  description: List published pages on bxp.com, newest first, with pagination.
+  rest: getWpV2Pages
+  path: /wp/v2/pages
+  verified_anonymous: true
+- name: get_bxp_page
+  description: Retrieve a single page by its site-local id.
+  rest: getWpV2PagesById
+  path: /wp/v2/pages/{id}
+  verified_anonymous: true
+- name: list_bxp_posts
+  description: List posts. Returned empty on 2026-09-04 — the news archive is not stored as core posts.
+  rest: getWpV2Posts
+  path: /wp/v2/posts
+  verified_anonymous: true
+- name: list_bxp_categories
+  description: List content categories (e.g. Case Studies) with post counts.
+  rest: getWpV2Categories
+  path: /wp/v2/categories
+  verified_anonymous: true
+- name: list_bxp_content_types
+  description: List the content types this site exposes to REST.
+  rest: getWpV2Types
+  path: /wp/v2/types
+  verified_anonymous: true
+- name: list_bxp_maps
+  description: List gl_js_maps records — the only non-core content type exposed to REST.
+  rest: getWpV2GlJsMaps
+  path: /wp/v2/gl_js_maps
+  verified_anonymous: true
+excluded_from_candidate:
+- reason: >-
+    Write and admin routes (settings, themes, plugins, users/me, all POST/PUT/PATCH/DELETE) are
+    excluded — they require a WordPress account on BXP's site and are not third-party reachable.
+- reason: >-
+    The entities an agent would actually want from BXP — properties, regions, leasing contacts —
+    are not exposed to REST at all. See data-model/boston-properties-data-model.yml `not_exposed`.
+caveats:
+- >-
+    Any client calling these routes must present a browser-shaped User-Agent. Cloudflare answers a
+    default agent User-Agent with an HTML 403 interstitial on every route.
+- >-
+    This surface is undeclared. BXP publishes no terms for programmatic use of it and its
+    responses carry x-robots-tag: noindex.

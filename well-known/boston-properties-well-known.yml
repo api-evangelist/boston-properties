@@ -1,0 +1,85 @@
+generated: '2026-09-04'
+method: probed
+source: live GET of each named /.well-known/ path on every host this record knows
+note: >-
+  Every named path was probed on all three hosts BXP is known to serve — the registrable domain,
+  www, and the investor-relations host — plus the one API host discovered in this pass
+  (www.bxp.com/wp-json). Nothing was served. www.bxp.com answers /.well-known/* with the
+  WordPress 404 page (HTML, HTTP 404), except /.well-known/security.txt which falls through to a
+  bare nginx 404. investors.bxp.com is behind an edge policy that returns HTTP 403 "Access Denied"
+  to every non-browser request including /robots.txt, so its /.well-known/ surface could not be
+  read at all — that is a blocked probe, not a recorded absence. No WellKnown or SecurityTxt
+  pointer is emitted from this file because no path returned a document.
+hosts:
+- host: www.bxp.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: bxp.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: investors.bxp.com
+  note: >-
+    Edge policy returns 403 "Access Denied" to every request from a non-browser client, including
+    /robots.txt. These are blocked probes, not absences.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null

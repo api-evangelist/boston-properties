@@ -1,0 +1,89 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/boston-properties-wordpress-rest-openapi.yml, openapi/boston-properties-wp-json-discovery.json,
+  live response headers (2026-09-04), and a search of https://www.bxp.com for compliance claims
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+note: >-
+  BXP publishes no conformance or certification claims for any API. Everything below is asserted
+  or refuted from the interface itself. Reward-only entries with no evidence are recorded as
+  conforms: false rather than omitted, so an absence is legible as a measurement.
+conformance:
+- id: pagination
+  conforms: true
+  evidence: >-
+    Page-number pagination with page/per_page and X-WP-Total, X-WP-TotalPages and RFC 8288 Link
+    rel="next" response headers, observed on
+    https://www.bxp.com/wp-json/wp/v2/pages?per_page=2 (HTTP 200, 2026-09-04).
+- id: rfc8288-web-linking
+  conforms: true
+  evidence: 'Link: <https://www.bxp.com/wp-json/wp/v2/pages?per_page=2&page=2>; rel="next" (HTTP 200, 2026-09-04)'
+- id: hateoas
+  conforms: true
+  evidence: >-
+    Every wp/v2 record carries an _links object with self/collection/about relations, e.g.
+    https://www.bxp.com/wp-json/wp/v2/search?search=office (HTTP 200, 2026-09-04).
+- id: oembed
+  conforms: true
+  evidence: >-
+    Serves the oEmbed 1.0 provider surface at /wp-json/oembed/1.0/embed — verified live,
+    https://www.bxp.com/wp-json/oembed/1.0/embed?url=https://www.bxp.com/ (HTTP 200, 2026-09-04)
+    returned a well-formed oEmbed document (version 1.0, provider_name BXP).
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors use the WordPress {code,message,data.status} envelope as application/json, not
+    application/problem+json. Observed on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401).
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header or equivalent on any of the 332 routes in the discovery document.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 security scheme. Authentication is HTTP Basic (WordPress application passwords) or
+    cookie + X-WP-Nonce. /.well-known/oauth-authorization-server returns 404 on every BXP host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on www.bxp.com and bxp.com (2026-09-04).
+- id: cors
+  conforms: true
+  evidence: >-
+    'access-control-allow-headers: Authorization, X-WP-Nonce, Content-Disposition, Content-MD5,
+    Content-Type' and 'access-control-expose-headers: X-WP-Total, X-WP-TotalPages, Link' observed
+    on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+- id: json-api
+  conforms: false
+  evidence: Media type is application/json, not application/vnd.api+json; no JSON:API document structure.
+- id: odata
+  conforms: false
+  evidence: No $metadata surface and no OData query options on any route.
+- id: scim
+  conforms: false
+  evidence: No urn:ietf:params:scim schema URN anywhere in the discovery document.
+domain_standards:
+  market: commercial real estate / REIT
+  applicable_standard_found: false
+  probed:
+  - standard: RESO Data Dictionary / RESO Web API
+    present: false
+    note: >-
+      RESO is the machine-readable standard for real-estate listing data, but it governs
+      residential MLS distribution; BXP is a commercial office REIT and declares no RESO
+      conformance anywhere on bxp.com. The one contract it serves is a WordPress CMS API with no
+      property, lease or listing entity in it at all — /wp/v2/types lists only WordPress core
+      types plus a map plugin (gl_js_maps). Property, region and team-member content exists as
+      custom post types (visible in the sitemaps) but is deliberately not exposed to REST.
+  - standard: OSCRE / gbXML / BOMA data standards
+    present: false
+    note: No reference on bxp.com and no matching structure in the served contract.
+  reward_only_note: >-
+    The Kin Score treats domain_standard_conformance as reward-only. BXP's market has standards,
+    but BXP publishes no contract in that market, so there is nothing to conform. No conformance
+    is invented to fill the slot.
+compliance_certifications:
+  published: false
+  trust_center: false
+  note: >-
+    probe-security-programs.py returned vdp=none trust=none on 2026-09-04. No SOC 2, ISO 27001,
+    PCI, HIPAA or FedRAMP claim, no trust center, and no bug bounty or coordinated disclosure
+    page. No Compliance pointer is emitted, because there is nothing published to point at.

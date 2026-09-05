@@ -1,0 +1,21 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://www.bxp.com (site map, page sitemap and full navigation reviewed 2026-09-04) — no
+  pricing, plans, developer or API commercial page exists
+subject: BXP (Boston Properties)
+plan_count: 0
+note: >-
+  BXP is a commercial real estate REIT. It sells and leases workplace space, not API access.
+  There is no developer program, no API pricing page, no plan tiers, and no sign-up for
+  programmatic access. The one API surface this repo records — the WordPress REST API on the
+  corporate website — is incidental CMS infrastructure with no commercial terms attached to it.
+  plan_count: 0 is the accurate measurement, not a gap in our search.
+plans: []
+evidence:
+- url: https://www.bxp.com/site-map
+  status: 200
+  note: full site map; no developer, API or pricing section
+- url: https://www.bxp.com/page-sitemap.xml
+  status: 200
+  note: every published page on the corporate site; no pricing or plans page

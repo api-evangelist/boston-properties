@@ -1,0 +1,27 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/boston-properties-wordpress-rest-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: WordPress application passwords, advertised by the site's own discovery document
+    at https://www.bxp.com/wp-json/ (authentication.application-passwords.endpoints.authorization
+    = https://www.bxp.com/wp-admin/authorize-application.php). Issued only to WordPress user
+    accounts on the BXP site; not available to third parties.
+  sources:
+  - openapi/boston-properties-wordpress-rest-openapi.yml
+- name: cookieNonce
+  type: apiKey
+  in: header
+  parameter: X-WP-Nonce
+  description: WordPress logged-in cookie plus an X-WP-Nonce header. Advertised by the Access-Control-Allow-Headers
+    response header observed on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+  sources:
+  - openapi/boston-properties-wordpress-rest-openapi.yml

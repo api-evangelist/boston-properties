@@ -1,0 +1,28 @@
+generated: '2026-09-04'
+method: generated
+source: >-
+  openapi/boston-properties-wordpress-rest-openapi.yml — every operationId referenced below was
+  verified against that document
+subject: BXP (Boston Properties)
+note: >-
+  BXP publishes no Agent Skills, no AGENTS.md and no llms.txt. These are authored by API
+  Evangelist over the one contract BXP serves, and each one states plainly what the surface will
+  not do.
+skills:
+- name: boston-properties-search-site-content
+  file: boston-properties-search-site-content.md
+  description: Search and retrieve BXP corporate website content via the WordPress REST API.
+  operations:
+  - getWpV2Search
+  - getWpV2Pages
+  - getWpV2PagesById
+  - getWpV2Categories
+  - getWpV2Types
+- name: boston-properties-monitor-site-changes
+  file: boston-properties-monitor-site-changes.md
+  description: Track new and edited BXP pages, news and media using the REST API plus sitemaps and RSS.
+  operations:
+  - getWpV2Pages
+  - getWpV2Posts
+  - getWpV2Media
+  - getWpV2Categories

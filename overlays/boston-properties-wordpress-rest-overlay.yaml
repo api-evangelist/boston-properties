@@ -1,0 +1,88 @@
+# OpenAPI Overlay 1.0.0 — API Evangelist enhancements over
+# openapi/boston-properties-wordpress-rest-openapi.yml.
+# The overlay carries what WE learned by probing the live surface; it never mutates the original.
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — BXP WordPress REST API
+  version: 1.0.0
+extends: ../openapi/boston-properties-wordpress-rest-openapi.yml
+x-generated: '2026-09-04'
+x-method: derived
+x-source: >-
+  live probes of https://www.bxp.com/wp-json/ (2026-09-04) plus the artifacts in this repository
+actions:
+- target: $.info
+  description: Record who measured this surface and how, and that BXP does not document it.
+  update:
+    x-api-evangelist:
+      profiled: '2026-09-04'
+      provider_documents_this_surface: false
+      developer_program: none
+      derived_from: https://www.bxp.com/wp-json/
+      artifacts:
+        conventions: conventions/boston-properties-conventions.yml
+        errors: errors/boston-properties-problem-types.yml
+        lifecycle: lifecycle/boston-properties-lifecycle.yml
+        authentication: authentication/boston-properties-authentication.yml
+        rate_limits: rate-limits/boston-properties-rate-limits.yml
+        conformance: conformance/boston-properties-conformance.yml
+        data_model: data-model/boston-properties-data-model.yml
+- target: $.info
+  description: Flag the edge behaviour that makes this surface unreachable to a default agent client.
+  update:
+    x-access-caveat: >-
+      Cloudflare answers requests carrying a non-browser User-Agent with an HTML 403 interstitial
+      on every route. A client must present a browser-shaped User-Agent to receive JSON.
+- target: $.paths['/wp/v2/search'].get
+  description: Mark the operations verified to answer anonymously on 2026-09-04.
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+- target: $.paths['/wp/v2/pages'].get
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+    x-observed-total: 20
+- target: $.paths['/wp/v2/posts'].get
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+    x-observed-total: 0
+    x-note: >-
+      Returns an empty array. BXP's news archive is not stored as WordPress core posts.
+- target: $.paths['/wp/v2/types'].get
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+- target: $.paths['/wp/v2/categories'].get
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+- target: $.paths['/wp/v2/gl_js_maps'].get
+  update:
+    x-verified-anonymous: true
+    x-verified-on: '2026-09-04'
+- target: $.paths['/wp/v2/settings'].get
+  description: Record the observed auth gate rather than leaving it implied.
+  update:
+    x-verified-anonymous: false
+    x-observed-status: 401
+    x-observed-code: rest_forbidden
+- target: $.paths['/wp/v2/themes'].get
+  update:
+    x-verified-anonymous: false
+    x-observed-status: 401
+    x-observed-code: rest_cannot_view_themes
+- target: $.components
+  description: Record the entities that exist on bxp.com but are withheld from this contract.
+  update:
+    x-not-exposed:
+      note: >-
+        These custom post types and taxonomies are published as HTML and have their own XML
+        sitemaps, but are not registered for REST and therefore absent from this contract.
+      types:
+      - property
+      - region
+      - team-member
+      - property-type
+      - member-type

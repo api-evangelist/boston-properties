@@ -1,0 +1,57 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  probes of https://www.bxp.com, https://status.bxp.com, https://bxp.statuspage.io and
+  https://www.bxp.com/wp-json/ (2026-09-04)
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+versioning:
+  policy_published: false
+  scheme: namespace-in-path
+  current_version: wp/v2
+  detail: >-
+    Version is carried in the URL namespace. It is set by the WordPress release running on the
+    site, not by a BXP versioning policy — BXP publishes none.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  detail: >-
+    No Deprecation or Sunset header appeared on any observed response, and no deprecation policy
+    exists on bxp.com. No operation in the route index is flagged deprecated.
+status_page:
+  published: false
+  url: null
+  probes:
+  - url: https://status.bxp.com
+    status: null
+    result: NXDOMAIN
+  - url: https://bxp.statuspage.io
+    status: 200
+    result: >-
+      Not a status page — redirects to https://www.atlassian.com/software/statuspage, Atlassian's
+      own marketing site, which is what Statuspage serves for a subdomain that does not exist.
+  - url: https://www.bxp.com/status
+    status: 404
+    result: WordPress 404 page
+sla:
+  published: false
+  detail: No service-level agreement is published for this surface; it is the corporate website's CMS API.
+support:
+  channel: https://www.bxp.com/contact
+  detail: >-
+    General corporate contact form only. There is no developer support channel, no forum, and no
+    published contact for the API surface.
+change_log:
+  published: false
+  detail: >-
+    No API changelog. BXP publishes a dated news archive at https://www.bxp.com/news (126 entries
+    in the news sitemap, RSS at https://www.bxp.com/news/feed/) but it is corporate news, not a
+    record of interface change.
+stability_assessment:
+  note: >-
+    The interface is stock WordPress core, so its shape is stable in the sense that upstream
+    governs it — but BXP makes no commitment about it, could disable REST access at any time, and
+    the site's own responses carry x-robots-tag: noindex. Treat as an undeclared surface, not a
+    supported product.

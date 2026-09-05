@@ -1,0 +1,75 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  live unauthenticated responses from https://www.bxp.com/wp-json/ (2026-09-04), cross-checked
+  against openapi/boston-properties-wordpress-rest-openapi.yml
+subject: BXP WordPress REST API (https://www.bxp.com/wp-json)
+format: wordpress-rest-error
+rfc9457: false
+rfc9457_note: >-
+  Not application/problem+json. The envelope is WordPress's own {code, message, data.status}
+  shape, returned as application/json. BXP publishes no error reference; every entry below was
+  read off a live response, and only codes actually observed are listed.
+envelope:
+  media_type: application/json
+  fields:
+    code: machine-readable error slug
+    message: human-readable sentence
+    data.status: the HTTP status repeated in the body
+    data.params: per-parameter validation messages (rest_invalid_param only)
+error_count: 5
+errors:
+- code: rest_invalid_param
+  status: 400
+  title: A request parameter failed validation
+  observed_message: 'Invalid parameter(s): per_page'
+  remediation: >-
+    Read data.params for the per-parameter reason. Collection routes cap per_page at 100
+    (observed: "per_page must be between 1 (inclusive) and 100 (inclusive)").
+  evidence: https://www.bxp.com/wp-json/wp/v2/pages?per_page=9999
+  http_status: 400
+  observed: '2026-09-04'
+- code: rest_no_route
+  status: 404
+  title: No route matches this URL and method
+  observed_message: No route was found matching the URL and request method.
+  remediation: Re-read the route index at https://www.bxp.com/wp-json/ — 332 routes across 15 namespaces.
+  evidence: https://www.bxp.com/wp-json/wp/v2/nope
+  http_status: 404
+  observed: '2026-09-04'
+- code: rest_post_invalid_id
+  status: 404
+  title: The requested record does not exist
+  observed_message: Invalid post ID.
+  remediation: List the collection first; ids are site-local integers, not stable public identifiers.
+  evidence: https://www.bxp.com/wp-json/wp/v2/pages/999999
+  http_status: 404
+  observed: '2026-09-04'
+- code: rest_forbidden
+  status: 401
+  title: Authentication required for this route
+  observed_message: Sorry, you are not allowed to do that.
+  remediation: >-
+    Requires a WordPress account on the BXP site (application password over HTTP Basic, or a
+    logged-in cookie plus X-WP-Nonce). Not obtainable by a third party.
+  evidence: https://www.bxp.com/wp-json/wp/v2/settings
+  http_status: 401
+  observed: '2026-09-04'
+- code: rest_cannot_view_themes
+  status: 401
+  title: Capability-specific refusal
+  observed_message: Sorry, you are not allowed to view themes.
+  remediation: >-
+    One of a family of rest_cannot_* codes WordPress returns per capability. Requires an
+    authenticated account with the matching capability.
+  evidence: https://www.bxp.com/wp-json/wp/v2/themes
+  http_status: 401
+  observed: '2026-09-04'
+edge_behaviour:
+  note: >-
+    The surface sits behind Cloudflare. A request carrying a non-browser User-Agent is answered
+    by a Cloudflare interstitial — HTTP 403, text/html, "Attention Required! | Cloudflare" —
+    which is NOT the API's error envelope. An agent that does not present a browser-shaped
+    User-Agent will read an HTML block page instead of JSON on every route.
+  observed: '2026-09-04'
+  evidence_status: 403
