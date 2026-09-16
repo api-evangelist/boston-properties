@@ -51,55 +51,517 @@ description: >-
   Los Angeles, New York, San Francisco, Seattle, and Washington DC. BXP is a
   self-administered and self-managed REIT focused on premier urban workspace.
 apis:
-  - aid: boston-properties:bxp-wordpress-rest-api
-    name: BXP WordPress REST API
-    description: >-
-      The WordPress REST API served by BXP's corporate website at https://www.bxp.com/wp-json — 332
-      routes across 15 namespaces, discovered by probing the API host root on 2026-09-04. This is
-      the only machine-readable contract BXP publishes. It is incidental CMS infrastructure, not a
-      product: BXP runs no developer program, publishes no documentation, no SDKs, no pricing and
-      no terms for programmatic use, and the surface carries x-robots-tag noindex. Reads under
-      wp/v2 are anonymous and were verified live (pages, posts, types, categories, search,
-      gl_js_maps, and an oEmbed 1.0 provider endpoint); writes and privileged reads require a
-      WordPress account on BXP's own site and are not obtainable by a third party. The entities a
-      real-estate consumer would want — property, region, team-member, property-type, member-type
-      — exist on the site as custom post types with their own sitemaps but are deliberately NOT
-      registered for REST, so they are absent from this contract.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/boston-properties.png
-    humanURL: https://www.bxp.com/wp-json/
-    baseURL: https://www.bxp.com/wp-json
-    tags:
-      - WordPress
-      - Content
-      - CMS
-      - Real-Estate
-    properties:
-      - type: OpenAPI
-        url: openapi/boston-properties-wordpress-rest-openapi.yml
-      - type: OpenAPISource
-        url: openapi/boston-properties-wp-json-discovery.json
-      - type: Overlay
-        url: overlays/boston-properties-wordpress-rest-overlay.yaml
-      - type: x-upstream-documentation
-        url: https://developer.wordpress.org/rest-api/
-    x-evidence:
-      discovery_url: https://www.bxp.com/wp-json/
-      http_status: 200
-      routes: 332
-      namespaces: 15
-      fetched: '2026-09-04'
-      anonymous_read_verified:
-        - https://www.bxp.com/wp-json/wp/v2/pages
-        - https://www.bxp.com/wp-json/wp/v2/types
-        - https://www.bxp.com/wp-json/wp/v2/categories
-        - https://www.bxp.com/wp-json/wp/v2/search
-        - https://www.bxp.com/wp-json/wp/v2/gl_js_maps
-        - https://www.bxp.com/wp-json/oembed/1.0/embed
-      ownership: >-
-        Served from www.bxp.com, BXP's own registrable domain. The discovery document
-        self-identifies as name "BXP", url https://www.bxp.com, and the oEmbed response returns
-        provider_name "BXP". No sibling-brand or third-party host is involved.
+- aid: boston-properties:boston-properties-block-directory-api
+  name: Boston Properties (BXP) Block Directory API
+  description: >-
+    The block-directory API from Boston Properties (BXP) — 1 operation(s) for block-directory.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - block-directory
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-block-directory-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-block-patterns-api
+  name: Boston Properties (BXP) Block Patterns API
+  description: The block-patterns API from Boston Properties (BXP) — 2 operation(s) for block-patterns.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - block-patterns
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-block-patterns-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-block-renderer-api
+  name: Boston Properties (BXP) Block Renderer API
+  description: The block-renderer API from Boston Properties (BXP) — 1 operation(s) for block-renderer.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - block-renderer
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-block-renderer-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-block-types-api
+  name: Boston Properties (BXP) Block Types API
+  description: The block-types API from Boston Properties (BXP) — 3 operation(s) for block-types.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - block-types
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-block-types-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-blocks-api
+  name: Boston Properties (BXP) Blocks API
+  description: The blocks API from Boston Properties (BXP) — 6 operation(s) for blocks.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-blocks-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-categories-api
+  name: Boston Properties (BXP) Categories API
+  description: The categories API from Boston Properties (BXP) — 2 operation(s) for categories.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - categories
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-categories-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-comments-api
+  name: Boston Properties (BXP) Comments API
+  description: The comments API from Boston Properties (BXP) — 2 operation(s) for comments.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - comments
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-comments-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-font-collections-api
+  name: Boston Properties (BXP) Font Collections API
+  description: >-
+    The font-collections API from Boston Properties (BXP) — 2 operation(s) for font-collections.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - font-collections
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-font-collections-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-font-families-api
+  name: Boston Properties (BXP) Font Families API
+  description: The font-families API from Boston Properties (BXP) — 4 operation(s) for font-families.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - font-families
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-font-families-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-gl-js-maps-api
+  name: Boston Properties (BXP) Gl Js Maps API
+  description: The gl_js_maps API from Boston Properties (BXP) — 6 operation(s) for gl_js_maps.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - gl_js_maps
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-gl-js-maps-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-global-styles-api
+  name: Boston Properties (BXP) Global Styles API
+  description: The global-styles API from Boston Properties (BXP) — 5 operation(s) for global-styles.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - global-styles
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-global-styles-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-icons-api
+  name: Boston Properties (BXP) Icons API
+  description: The icons API from Boston Properties (BXP) — 2 operation(s) for icons.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - icons
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-icons-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-index-api
+  name: Boston Properties (BXP) Index API
+  description: The index API from Boston Properties (BXP) — 1 operation(s) for index.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - index
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-index-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-media-api
+  name: Boston Properties (BXP) Media API
+  description: The media API from Boston Properties (BXP) — 4 operation(s) for media.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - media
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-media-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-menu-items-api
+  name: Boston Properties (BXP) Menu Items API
+  description: The menu-items API from Boston Properties (BXP) — 4 operation(s) for menu-items.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - menu-items
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-menu-items-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-menu-locations-api
+  name: Boston Properties (BXP) Menu Locations API
+  description: The menu-locations API from Boston Properties (BXP) — 2 operation(s) for menu-locations.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - menu-locations
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-menu-locations-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-menus-api
+  name: Boston Properties (BXP) Menus API
+  description: The menus API from Boston Properties (BXP) — 2 operation(s) for menus.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - menus
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-menus-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-navigation-api
+  name: Boston Properties (BXP) Navigation API
+  description: The navigation API from Boston Properties (BXP) — 6 operation(s) for navigation.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - navigation
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-navigation-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-pages-api
+  name: Boston Properties (BXP) Pages API
+  description: The pages API from Boston Properties (BXP) — 6 operation(s) for pages.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - pages
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-pages-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-pattern-directory-api
+  name: Boston Properties (BXP) Pattern Directory API
+  description: >-
+    The pattern-directory API from Boston Properties (BXP) — 1 operation(s) for pattern-directory.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - pattern-directory
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-pattern-directory-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-plugins-api
+  name: Boston Properties (BXP) Plugins API
+  description: The plugins API from Boston Properties (BXP) — 2 operation(s) for plugins.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - plugins
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-plugins-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-posts-api
+  name: Boston Properties (BXP) Posts API
+  description: The posts API from Boston Properties (BXP) — 6 operation(s) for posts.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - posts
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-posts-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-search-api
+  name: Boston Properties (BXP) Search API
+  description: The search API from Boston Properties (BXP) — 1 operation(s) for search.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-search-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-settings-api
+  name: Boston Properties (BXP) Settings API
+  description: The settings API from Boston Properties (BXP) — 1 operation(s) for settings.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - settings
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-settings-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-sidebars-api
+  name: Boston Properties (BXP) Sidebars API
+  description: The sidebars API from Boston Properties (BXP) — 2 operation(s) for sidebars.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - sidebars
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-sidebars-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-statuses-api
+  name: Boston Properties (BXP) Statuses API
+  description: The statuses API from Boston Properties (BXP) — 2 operation(s) for statuses.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-statuses-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-tags-api
+  name: Boston Properties (BXP) Tags API
+  description: The tags API from Boston Properties (BXP) — 2 operation(s) for tags.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-tags-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-taxonomies-api
+  name: Boston Properties (BXP) Taxonomies API
+  description: The taxonomies API from Boston Properties (BXP) — 2 operation(s) for taxonomies.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - taxonomies
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-taxonomies-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-template-parts-api
+  name: Boston Properties (BXP) Template Parts API
+  description: The template-parts API from Boston Properties (BXP) — 7 operation(s) for template-parts.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - template-parts
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-template-parts-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-templates-api
+  name: Boston Properties (BXP) Templates API
+  description: The templates API from Boston Properties (BXP) — 7 operation(s) for templates.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - templates
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-templates-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-themes-api
+  name: Boston Properties (BXP) Themes API
+  description: The themes API from Boston Properties (BXP) — 2 operation(s) for themes.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - themes
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-themes-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-types-api
+  name: Boston Properties (BXP) Types API
+  description: The types API from Boston Properties (BXP) — 2 operation(s) for types.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - types
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-types-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-users-api
+  name: Boston Properties (BXP) Users API
+  description: The users API from Boston Properties (BXP) — 6 operation(s) for users.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-users-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-widget-types-api
+  name: Boston Properties (BXP) Widget Types API
+  description: The widget-types API from Boston Properties (BXP) — 4 operation(s) for widget-types.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - widget-types
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-widget-types-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-widgets-api
+  name: Boston Properties (BXP) Widgets API
+  description: The widgets API from Boston Properties (BXP) — 2 operation(s) for widgets.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-widgets-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
+- aid: boston-properties:boston-properties-wp-pattern-category-api
+  name: Boston Properties (BXP) Wp Pattern Category API
+  description: >-
+    The wp_pattern_category API from Boston Properties (BXP) — 2 operation(s) for wp_pattern_category.
+  humanURL: https://www.bxp.com/wp-json/
+  baseURL: https://www.bxp.com/wp-json
+  tags:
+  - wp_pattern_category
+  properties:
+  - type: OpenAPI
+    url: openapi/boston-properties-wp-pattern-category-api-openapi.yml
+  - type: OpenAPISource
+    url: openapi/boston-properties-wp-json-discovery.json
+  - type: x-upstream-documentation
+    url: https://developer.wordpress.org/rest-api/
 common:
+  - type: Overlay
+    url: overlays/boston-properties-wordpress-rest-overlay.yaml
   - type: Conventions
     url: conventions/boston-properties-conventions.yml
   - type: ErrorCatalog
