@@ -114,6 +114,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Blocks
+  tags_raw:
   - blocks
   properties:
   - type: OpenAPI
@@ -128,6 +130,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Categories
+  tags_raw:
   - categories
   properties:
   - type: OpenAPI
@@ -142,6 +146,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Comments
+  tags_raw:
   - comments
   properties:
   - type: OpenAPI
@@ -184,7 +190,8 @@ apis:
   description: The gl_js_maps API from Boston Properties (BXP) — 6 operation(s) for gl_js_maps.
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
-  tags:
+  tags: []
+  tags_raw:
   - gl_js_maps
   properties:
   - type: OpenAPI
@@ -213,6 +220,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Icons
+  tags_raw:
   - icons
   properties:
   - type: OpenAPI
@@ -227,6 +236,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Index
+  tags_raw:
   - index
   properties:
   - type: OpenAPI
@@ -241,6 +252,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Media
+  tags_raw:
   - media
   properties:
   - type: OpenAPI
@@ -283,6 +296,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Menus
+  tags_raw:
   - menus
   properties:
   - type: OpenAPI
@@ -297,6 +312,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Navigation
+  tags_raw:
   - navigation
   properties:
   - type: OpenAPI
@@ -311,6 +328,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Pages
+  tags_raw:
   - pages
   properties:
   - type: OpenAPI
@@ -340,6 +359,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Plugins
+  tags_raw:
   - plugins
   properties:
   - type: OpenAPI
@@ -354,6 +375,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Posts
+  tags_raw:
   - posts
   properties:
   - type: OpenAPI
@@ -368,6 +391,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -382,6 +407,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Settings
+  tags_raw:
   - settings
   properties:
   - type: OpenAPI
@@ -410,6 +437,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Status
+  tags_raw:
   - statuses
   properties:
   - type: OpenAPI
@@ -424,6 +453,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -466,6 +497,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Templates
+  tags_raw:
   - templates
   properties:
   - type: OpenAPI
@@ -480,6 +513,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Themes
+  tags_raw:
   - themes
   properties:
   - type: OpenAPI
@@ -494,6 +529,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Types
+  tags_raw:
   - types
   properties:
   - type: OpenAPI
@@ -508,6 +545,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -536,6 +575,8 @@ apis:
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
   tags:
+  - Widgets
+  tags_raw:
   - widgets
   properties:
   - type: OpenAPI
@@ -550,7 +591,8 @@ apis:
     The wp_pattern_category API from Boston Properties (BXP) — 2 operation(s) for wp_pattern_category.
   humanURL: https://www.bxp.com/wp-json/
   baseURL: https://www.bxp.com/wp-json
-  tags:
+  tags: []
+  tags_raw:
   - wp_pattern_category
   properties:
   - type: OpenAPI
