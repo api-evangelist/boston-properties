@@ -1,0 +1,322 @@
+openapi: 3.2.0
+info:
+  title: BXP WordPress REST API (wp/v2) Widget Types API
+  version: wp/v2
+  description: The WordPress REST API namespace `wp/v2` as served by BXP (Boston Properties) at https://www.bxp.com/wp-json/.
+  contact:
+    name: BXP
+    url: https://www.bxp.com/contact
+  termsOfService: https://www.bxp.com/terms-of-service
+servers:
+- url: https://www.bxp.com/wp-json
+  description: BXP corporate site WordPress REST API
+tags:
+- name: widget types
+paths:
+  /wp/v2/widget-types:
+    get:
+      operationId: getWpV2WidgetTypes
+      summary: GET /wp/v2/widget-types
+      tags:
+      - widget types
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+  /wp/v2/widget-types/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2WidgetTypesById
+      summary: GET /wp/v2/widget-types/{id}
+      tags:
+      - widget types
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+  /wp/v2/widget-types/{id}/encode:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: createWpV2WidgetTypesByIdEncode
+      summary: POST /wp/v2/widget-types/{id}/encode
+      tags:
+      - widget types
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                form_data:
+                  type: string
+                  description: Serialized widget form data to encode into instance settings.
+                instance:
+                  type: object
+                  description: Current instance settings of the widget.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/widget-types/{id}/render:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: createWpV2WidgetTypesByIdRender
+      summary: POST /wp/v2/widget-types/{id}/render
+      tags:
+      - widget types
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instance:
+                  type: object
+                  description: Current instance settings of the widget.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    WPError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401, 2026-09-04). Not RFC 9457 problem+json.
+      properties:
+        code:
+          type: string
+          examples:
+          - rest_forbidden
+        message:
+          type: string
+          examples:
+          - Sorry, you are not allowed to do that.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              examples:
+              - 401
+      required:
+      - code
+      - message
+      - data
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own discovery document at https://www.bxp.com/wp-json/ (authentication.application-passwords.endpoints.authorization = https://www.bxp.com/wp-admin/authorize-application.php). Issued only to WordPress user accounts on the BXP site; not available to third parties.
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress logged-in cookie plus an X-WP-Nonce header. Advertised by the Access-Control-Allow-Headers response header observed on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+externalDocs:
+  description: Upstream WordPress REST API handbook (not authored by BXP)
+  url: https://developer.wordpress.org/rest-api/
+x-generated-from: https://www.bxp.com/wp-json/ (WordPress REST route-discovery document, HTTP 200, 2026-09-04)
+x-generated-by: API Evangelist enrichment pipeline — mechanical transform of the provider-served route index; no hand-authored operations

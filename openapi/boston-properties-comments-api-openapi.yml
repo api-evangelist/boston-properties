@@ -1,0 +1,616 @@
+openapi: 3.2.0
+info:
+  title: BXP WordPress REST API (wp/v2) Comments API
+  version: wp/v2
+  description: The WordPress REST API namespace `wp/v2` as served by BXP (Boston Properties) at https://www.bxp.com/wp-json/.
+  contact:
+    name: BXP
+    url: https://www.bxp.com/contact
+  termsOfService: https://www.bxp.com/terms-of-service
+servers:
+- url: https://www.bxp.com/wp-json
+  description: BXP corporate site WordPress REST API
+tags:
+- name: Comments
+paths:
+  /wp/v2/comments:
+    get:
+      operationId: getWpV2Comments
+      summary: GET /wp/v2/comments
+      tags:
+      - Comments
+      parameters:
+      - name: after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to comments published after a given ISO8601 compliant date.
+      - name: author
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Limit result set to comments assigned to specific user IDs. Requires authorization.
+      - name: author_email
+        in: query
+        required: false
+        schema:
+          type: string
+          format: email
+        description: Limit result set to that from a specific author email. Requires authorization.
+      - name: author_exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Ensure result set excludes comments assigned to specific user IDs. Requires authorization.
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to comments published before a given ISO8601 compliant date.
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to specific IDs.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - date
+          - date_gmt
+          - id
+          - include
+          - post
+          - parent
+          - type
+          default: date_gmt
+        description: Sort collection by comment attribute.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Current page of the collection.
+      - name: parent
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to comments of specific parent IDs.
+      - name: parent_exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific parent IDs.
+      - name: password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The password for the post if it is password protected.
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        description: Maximum number of items to be returned in result set.
+      - name: post
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to comments assigned to specific post IDs.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          default: approve
+        description: Limit result set to comments assigned a specific status. Requires authorization.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: comment
+        description: Limit result set to comments assigned a specific type. Requires authorization.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2Comments
+      summary: POST /wp/v2/comments
+      tags:
+      - Comments
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                meta:
+                  type: object
+                  description: Meta fields.
+                parent:
+                  type: integer
+                  default: 0
+                  description: The ID for the parent of the comment.
+                post:
+                  type: integer
+                  default: 0
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/comments/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2CommentsById
+      summary: GET /wp/v2/comments/{id}
+      tags:
+      - Comments
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The password for the parent post of the comment (if the post is password protected).
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2CommentsById
+      summary: POST /wp/v2/comments/{id}
+      tags:
+      - Comments
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                meta:
+                  type: object
+                  description: Meta fields.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the comment.
+                post:
+                  type: integer
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteWpV2CommentsById
+      summary: DELETE /wp/v2/comments/{id}
+      tags:
+      - Comments
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                  default: false
+                  description: Whether to bypass Trash and force deletion.
+                password:
+                  type: string
+                  description: The password for the parent post of the comment (if the post is password protected).
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    WPError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401, 2026-09-04). Not RFC 9457 problem+json.
+      properties:
+        code:
+          type: string
+          examples:
+          - rest_forbidden
+        message:
+          type: string
+          examples:
+          - Sorry, you are not allowed to do that.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              examples:
+              - 401
+      required:
+      - code
+      - message
+      - data
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own discovery document at https://www.bxp.com/wp-json/ (authentication.application-passwords.endpoints.authorization = https://www.bxp.com/wp-admin/authorize-application.php). Issued only to WordPress user accounts on the BXP site; not available to third parties.
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress logged-in cookie plus an X-WP-Nonce header. Advertised by the Access-Control-Allow-Headers response header observed on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+externalDocs:
+  description: Upstream WordPress REST API handbook (not authored by BXP)
+  url: https://developer.wordpress.org/rest-api/
+x-generated-from: https://www.bxp.com/wp-json/ (WordPress REST route-discovery document, HTTP 200, 2026-09-04)
+x-generated-by: API Evangelist enrichment pipeline — mechanical transform of the provider-served route index; no hand-authored operations

@@ -1,7 +1,9 @@
 ---
 title: Nantum OS by Prescriptive Data Named Sustainability ...
 url: https://www.nantum.ai/press-releases/nantum-os-by-prescriptive-data-named-sustainability-product-of-the-year
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Boston Properties" press release artificial intelligence'
 position: 4
 source: serpapi-google

@@ -1,0 +1,1103 @@
+openapi: 3.2.0
+info:
+  title: BXP WordPress REST API (wp/v2) Navigation API
+  version: wp/v2
+  description: The WordPress REST API namespace `wp/v2` as served by BXP (Boston Properties) at https://www.bxp.com/wp-json/.
+  contact:
+    name: BXP
+    url: https://www.bxp.com/contact
+  termsOfService: https://www.bxp.com/terms-of-service
+servers:
+- url: https://www.bxp.com/wp-json
+  description: BXP corporate site WordPress REST API
+tags:
+- name: Navigation
+paths:
+  /wp/v2/navigation:
+    get:
+      operationId: getWpV2Navigation
+      summary: GET /wp/v2/navigation
+      tags:
+      - Navigation
+      parameters:
+      - name: after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published after a given ISO8601 compliant date.
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published before a given ISO8601 compliant date.
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to specific IDs.
+      - name: modified_after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+      - name: modified_before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          default: date
+        description: Sort collection by post attribute.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        description: Maximum number of items to be returned in result set.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: search_columns
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: string
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+        description: Array of column names to be searched.
+      - name: search_semantics
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - exact
+        description: How to interpret the search input.
+      - name: slug
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to posts with one or more specific slugs.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          default: publish
+          items:
+            type: string
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - email_sent
+            - email_failed
+            - email_scheduled
+            - any
+        description: Limit result set to posts assigned one or more statuses.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2Navigation
+      summary: POST /wp/v2/navigation
+      tags:
+      - Navigation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: object
+                  description: The content for the post.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                title:
+                  type: object
+                  description: The title for the post.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/navigation/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2NavigationById
+      summary: GET /wp/v2/navigation/{id}
+      tags:
+      - Navigation
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The password for the post if it is password protected.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2NavigationById
+      summary: POST /wp/v2/navigation/{id}
+      tags:
+      - Navigation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: object
+                  description: The content for the post.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                title:
+                  type: object
+                  description: The title for the post.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteWpV2NavigationById
+      summary: DELETE /wp/v2/navigation/{id}
+      tags:
+      - Navigation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                  default: false
+                  description: Whether to bypass Trash and force deletion.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/navigation/{id}/autosaves:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2NavigationByIdAutosaves
+      summary: GET /wp/v2/navigation/{id}/autosaves
+      tags:
+      - Navigation
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: parent
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The ID for the parent of the autosave.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2NavigationByIdAutosaves
+      summary: POST /wp/v2/navigation/{id}/autosaves
+      tags:
+      - Navigation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: object
+                  description: The content for the post.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the autosave.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                title:
+                  type: object
+                  description: The title for the post.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/navigation/{parent}/autosaves/{id}:
+    parameters:
+    - name: parent
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2NavigationByParentAutosavesById
+      summary: GET /wp/v2/navigation/{parent}/autosaves/{id}
+      tags:
+      - Navigation
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+  /wp/v2/navigation/{parent}/revisions:
+    parameters:
+    - name: parent
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2NavigationByParentRevisions
+      summary: GET /wp/v2/navigation/{parent}/revisions
+      tags:
+      - Navigation
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          default: []
+          items:
+            type: integer
+        description: Limit result set to specific IDs.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - date
+          - id
+          - include
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          default: date
+        description: Sort collection by object attribute.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+        description: Maximum number of items to be returned in result set.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+  /wp/v2/navigation/{parent}/revisions/{id}:
+    parameters:
+    - name: parent
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWpV2NavigationByParentRevisionsById
+      summary: GET /wp/v2/navigation/{parent}/revisions/{id}
+      tags:
+      - Navigation
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    delete:
+      operationId: deleteWpV2NavigationByParentRevisionsById
+      summary: DELETE /wp/v2/navigation/{parent}/revisions/{id}
+      tags:
+      - Navigation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                  default: false
+                  description: Required to be true, as revisions do not support trashing.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    WPError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401, 2026-09-04). Not RFC 9457 problem+json.
+      properties:
+        code:
+          type: string
+          examples:
+          - rest_forbidden
+        message:
+          type: string
+          examples:
+          - Sorry, you are not allowed to do that.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              examples:
+              - 401
+      required:
+      - code
+      - message
+      - data
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own discovery document at https://www.bxp.com/wp-json/ (authentication.application-passwords.endpoints.authorization = https://www.bxp.com/wp-admin/authorize-application.php). Issued only to WordPress user accounts on the BXP site; not available to third parties.
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress logged-in cookie plus an X-WP-Nonce header. Advertised by the Access-Control-Allow-Headers response header observed on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+externalDocs:
+  description: Upstream WordPress REST API handbook (not authored by BXP)
+  url: https://developer.wordpress.org/rest-api/
+x-generated-from: https://www.bxp.com/wp-json/ (WordPress REST route-discovery document, HTTP 200, 2026-09-04)
+x-generated-by: API Evangelist enrichment pipeline — mechanical transform of the provider-served route index; no hand-authored operations

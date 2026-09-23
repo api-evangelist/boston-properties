@@ -1,3 +1,5 @@
+# x-archived-from: boston-properties-wordpress-rest-openapi.yml
+# x-archived-on: 2026-09-16
 # Derived by the API Evangelist enrichment pipeline from BXP's own WordPress REST
 # route-discovery document (https://www.bxp.com/wp-json/, HTTP 200, 2026-09-04).
 # Nothing in this file was invented: every path, method, parameter, default and enum

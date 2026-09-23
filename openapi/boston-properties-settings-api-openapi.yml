@@ -1,0 +1,251 @@
+openapi: 3.2.0
+info:
+  title: BXP WordPress REST API (wp/v2) Settings API
+  version: wp/v2
+  description: The WordPress REST API namespace `wp/v2` as served by BXP (Boston Properties) at https://www.bxp.com/wp-json/.
+  contact:
+    name: BXP
+    url: https://www.bxp.com/contact
+  termsOfService: https://www.bxp.com/terms-of-service
+servers:
+- url: https://www.bxp.com/wp-json
+  description: BXP corporate site WordPress REST API
+tags:
+- name: Settings
+paths:
+  /wp/v2/settings:
+    get:
+      operationId: getWpV2Settings
+      summary: GET /wp/v2/settings
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+    post:
+      operationId: createWpV2Settings
+      summary: POST /wp/v2/settings
+      tags:
+      - Settings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow people to submit comments on new posts.
+                default_ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                description:
+                  type: string
+                  description: Site tagline.
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                language:
+                  type: string
+                  description: WordPress locale code.
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                site_icon:
+                  type: integer
+                  description: Site icon.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                themeisle_sdk_promotions:
+                  type: string
+                themeisle_sdk_promotions_hyve_installed:
+                  type: boolean
+                themeisle_sdk_promotions_masteriyo_installed:
+                  type: boolean
+                themeisle_sdk_promotions_neve_installed:
+                  type: boolean
+                themeisle_sdk_promotions_optimole_installed:
+                  type: boolean
+                themeisle_sdk_promotions_otter_installed:
+                  type: boolean
+                themeisle_sdk_promotions_redirection_cf7_installed:
+                  type: boolean
+                themeisle_sdk_promotions_rop_installed:
+                  type: boolean
+                themeisle_sdk_promotions_wp_full_pay_installed:
+                  type: boolean
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                title:
+                  type: string
+                  description: Site title.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+                wordpress_api_key:
+                  type: string
+                  description: API key for the Akismet Anti-spam connector.
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-WP-Total:
+              description: Total number of matching records (collection routes)
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages (collection routes)
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev)
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: rest_invalid_param — a parameter failed validation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: rest_forbidden — authentication required for this route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '403':
+          description: rest_forbidden / rest_cannot_* — authenticated but not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: rest_no_route / rest_post_invalid_id — route or resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    WPError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on https://www.bxp.com/wp-json/wp/v2/settings (HTTP 401, 2026-09-04). Not RFC 9457 problem+json.
+      properties:
+        code:
+          type: string
+          examples:
+          - rest_forbidden
+        message:
+          type: string
+          examples:
+          - Sorry, you are not allowed to do that.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              examples:
+              - 401
+      required:
+      - code
+      - message
+      - data
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application passwords, advertised by the site's own discovery document at https://www.bxp.com/wp-json/ (authentication.application-passwords.endpoints.authorization = https://www.bxp.com/wp-admin/authorize-application.php). Issued only to WordPress user accounts on the BXP site; not available to third parties.
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress logged-in cookie plus an X-WP-Nonce header. Advertised by the Access-Control-Allow-Headers response header observed on https://www.bxp.com/wp-json/wp/v2/pages (2026-09-04).
+externalDocs:
+  description: Upstream WordPress REST API handbook (not authored by BXP)
+  url: https://developer.wordpress.org/rest-api/
+x-generated-from: https://www.bxp.com/wp-json/ (WordPress REST route-discovery document, HTTP 200, 2026-09-04)
+x-generated-by: API Evangelist enrichment pipeline — mechanical transform of the provider-served route index; no hand-authored operations

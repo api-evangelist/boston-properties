@@ -1,7 +1,9 @@
 ---
 title: Piper Sandler reiterates Boston Properties stock rating on ...
 url: https://www.investing.com/news/analyst-ratings/piper-sandler-reiterates-boston-properties-stock-rating-on-ai-demand-93CH-4692668
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Boston Properties" press release artificial intelligence'
 position: 1
 source: serpapi-google
