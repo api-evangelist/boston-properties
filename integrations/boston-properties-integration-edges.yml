@@ -1,0 +1,44 @@
+edges:
+- partner_name: SEC (REIT registrant, SIC 6798)
+  partner: null
+  partner_match: register-name
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001037540
+  category: Real estate investment trust (SEC registrant)
+  contract_reference:
+    register: SEC EDGAR company list, SIC 6798 (Real Estate Investment Trusts)
+    spec_file: null
+    standard: SEC registrant, SIC 6798 Real Estate Investment Trusts (Internal Revenue Code ss856-860 REIT)
+    role: sec-reit-registrant
+    registered_name: BXP, Inc.
+    register_id: CIK 0001037540
+    state_of_record: MA
+    sic_description: Real Estate Investment Trusts
+    tickers:
+    - BXP
+    exchanges:
+    - NYSE
+    last_filing: '2026-10-01'
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: register-name 'bostonpropertiesbxp' = boston-properties; no wikidata P856
+    signal_note: 'participation only: an SEC filer classified SIC 6798 is a REIT registrant; registration is not
+      a certification; ticker / exchange / filing date are context, never counted'
+    detected_by: sweep-reit-real-estate-securities.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-reit-real-estate-securities.py
+  first_seen: '2026-10-21'
+generated: '2026-10-21'
+method: searched
+source:
+- https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&SIC=6798&type=&dateb=&owner=include&start=0&count=100&hidefilings=0
+- https://www.epra.com/membership/our-members
+checked:
+- https://www.epra.com/membership/our-members
+- https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&SIC=6798&type=&dateb=&owner=include&start=0&count=100&hidefilings=0
