@@ -1,4 +1,4 @@
-# Boston Properties / BXP (boston-properties)
+# Boston Properties (BXP)
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,60 +64,112 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-BXP (formerly Boston Properties) is the largest publicly traded developer, owner, and manager of premier workplaces in the United States. The company develops, owns, and manages Class A office properties across six major U.S. markets: Boston, Los Angeles, New York, San Francisco, Seattle, and Washington DC. BXP is a self-administered and self-managed REIT focused on premier urban workspace under the tagline "Places Powering Progress."
+BXP (formerly Boston Properties) is the largest publicly traded developer, owner, and manager of premier workplaces in the United States. The company develops, owns, and manages Class A office properties across six major U.S. markets: Boston, Los Angeles, New York, San Francisco, Seattle, and Washington DC. BXP is a self-administered and self-managed REIT focused on premier urban workspace.
 
-**URL:** [https://raw.githubusercontent.com/api-evangelist/boston-properties/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/boston-properties/refs/heads/main/apis.yml)
+**Areas:** Real Estate · Commercial Real Estate · REIT · Office Properties · Workplace · Fortune 1000
 
-## Scope
+## Boston Properties (BXP) on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Boston Properties (BXP) is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/boston-properties/](https://apis.io/providers/boston-properties/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (1)
 
-- Real Estate
-- Commercial Real Estate
-- REIT
-- Office Properties
-- Workplace
+- [Boston Properties (BXP) Website (WordPress REST)](https://apis.io/apis/boston-properties/bxp-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Boston Properties (BXP) website at www.bxp.com: the route index of the site's content management system,…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-23
-- **Modified:** 2026-04-21
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-No public APIs have been documented yet. Contributions welcome.
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [boston-properties-candidate](https://apis.io/servers/boston-properties/boston-properties-candidate/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Boston Properties Agentic Access](https://apis.io/agentic-access/boston-properties/boston-properties-agentic-access/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Boston Properties Authentication](https://apis.io/security/boston-properties/boston-properties-authentication/)
+- [Boston Properties Domain Security](https://apis.io/security/boston-properties/boston-properties-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Boston Properties Plans Pricing](https://apis.io/plans/boston-properties/boston-properties-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Boston Properties Rate Limits](https://apis.io/rate-limits/boston-properties/boston-properties-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.bxp.com)
-- [Investor Relations](https://investors.bxp.com)
-- [Properties](https://www.bxp.com/properties)
-- [Contact](https://www.bxp.com/contact)
+- [Support](https://www.bxp.com/contact)
+- [Blog](https://www.bxp.com/news)
+- [Terms of service](https://www.bxp.com/terms-of-service)
+- [Privacy policy](https://www.bxp.com/privacy-policy)
 
-## Markets
+## API Evangelist rating
 
-Boston, Los Angeles, New York, San Francisco, Seattle, Washington DC
+**Kin Score 23.3** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-## Property Types
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 24.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
 
-- Class A Office
-- Life Science
-- Mixed-Use Urban Developments
+**Agent readiness 23.6** — agent-aware
 
-## About
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-- **Formerly Known As:** Boston Properties
-- **Founded:** 1970
-- **Headquarters:** Boston, Massachusetts, USA
-- **Stock Ticker:** BXP (NYSE)
-- **Industry:** Real Estate Investment Trust (REIT) (SIC 6798)
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
 
-## Maintainers
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/boston-properties/](https://apis.io/providers/boston-properties/).
 
-**FN:** Kin Lane
+## How this profile is made
 
-**Email:** info@apievangelist.com
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Boston Properties (BXP): the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/boston-properties/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
