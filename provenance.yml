@@ -17,6 +17,9 @@ artifacts:
   data-model/boston-properties-data-model.yml:
     method: derived
     evidence: declared in the artifact
+  eligibility/boston-properties-eligibility.yml:
+    method: harvested
+    evidence: declared in the artifact
   errors/boston-properties-problem-types.yml:
     method: unknown
     evidence: no authorship recorded
@@ -29,6 +32,9 @@ artifacts:
   heartbeat/2026-11-06.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -38,7 +44,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -104,6 +110,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/boston-properties-lifecycle.yml:
     method: unknown
     evidence: no authorship recorded
@@ -141,6 +150,9 @@ artifacts:
   press/2026-05-25-05-form-10-q-for-boston-properties-inc-filed-11-07-2023.md:
     method: unknown
     evidence: no authorship recorded
+  privacy/boston-properties-privacy-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   rate-limits/boston-properties-rate-limits.yml:
     method: unknown
     evidence: no authorship recorded
@@ -173,6 +185,9 @@ artifacts:
     evidence: declared in the artifact
   skills/boston-properties-search-site-content.md:
     method: generated
+    evidence: declared in the artifact
+  terms/boston-properties-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   well-known/boston-properties-well-known.yml:
     method: unknown
